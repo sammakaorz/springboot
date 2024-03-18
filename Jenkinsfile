@@ -10,9 +10,19 @@ pipeline {
                 cleanWs()
             }
         }
-                stage("code checkout"){
+        stage("code checkout"){
             steps{
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot'
+            }
+        }
+        stage("Build Applicaton"){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+        stage("test Applicaton"){
+            steps{
+                sh "mvn test"
             }
         }
     }
