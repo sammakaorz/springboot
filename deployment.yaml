@@ -16,7 +16,7 @@ spec:
         app: springboot
     spec:
       containers:
-      - image: sammakaorz/springboot:1.0.0-18
+      - image: sammakaorz/springboot:1.0.0-19
         name: springboot
         resources:
           limits:
