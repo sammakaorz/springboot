@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools{
-        jdk "Java17"
+        jdk "java17"
         maven "Maven3"
     }
     stages{
@@ -14,7 +14,7 @@ pipeline {
     stages{
         stage("code checkout"){
             steps{
-                git branch: 'main' credentialsId: 'github' url: 'https://github.com/sammakaorz/springboot'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot'
             }
         }
     }
