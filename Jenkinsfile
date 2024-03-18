@@ -1,44 +1,44 @@
 pipeline {
-    agent any
     tools{
         jdk "java17"
         maven "Maven3"
     }
-    stages{
-        stage("cleanup workspace"){
+    Stages{
+        stage(Clean Workspace){
             steps{
                 cleanWs()
             }
         }
-        stage("code checkout"){
+        stage(Code Checkout){
             steps{
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot'
             }
         }
-        stage("Build Applicaton"){
+        stage(Build Code){
             steps{
-                sh "mvn clean package"
+                sh 'mvn clean package'
             }
         }
-        stage("test Applicaton"){
+        stage(Test Code){
             steps{
-                sh "mvn test"
+                sh 'mvn test'
             }
         }
-        stage("Sonarqube Analysis"){
+        stage(Sonarqube Analysis){
             steps{
-                withSonarQubeEnv(credentialsID: 'jenkins-sonarqube-token'){
-                    sh "mvn sonar:sonar"
+                script{
+                    withSonarQubeEnv(credentialsID: 'jenkins-sonarqube-token'){
+                        sh "mvn sonar:sonar"
+                    }
                 }
             }
         }
-        stage("Sonarqube Analysis"){
+        stage(Sonarqube Analysis){
             steps{
                 script{
-                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
                 }
             }
         }
     }
 }
-
