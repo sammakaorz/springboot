@@ -10,13 +10,10 @@ pipeline {
                 cleanWs()
             }
         }
-    }
-    stages{
-        stage("code checkout"){
+                stage("code checkout"){
             steps{
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot'
             }
         }
     }
-
 }
