@@ -4,27 +4,27 @@ pipeline {
         maven "Maven3"
     }
     Stages{
-        stage(Clean Workspace){
+        stage("Clean Workspace"){
             steps{
                 cleanWs()
             }
         }
-        stage(Code Checkout){
+        stage("Code Checkout"){
             steps{
                 git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot'
             }
         }
-        stage(Build Code){
+        stage("Build Code"){
             steps{
                 sh 'mvn clean package'
             }
         }
-        stage(Test Code){
+        stage("Test Code"){
             steps{
                 sh 'mvn test'
             }
         }
-        stage(Sonarqube Analysis){
+        stage("Sonarqube Analysis"){
             steps{
                 script{
                     withSonarQubeEnv(credentialsID: 'jenkins-sonarqube-token'){
@@ -33,7 +33,7 @@ pipeline {
                 }
             }
         }
-        stage(Sonarqube Analysis){
+        stage("Sonarqube quality gate"){
             steps{
                 script{
                     waitForQualityGate abortPipeline: false, credentialsId: 'jenkins-sonarqube-token'
