@@ -71,6 +71,35 @@ pipeline {
             }
         }
 
+        stage('Checkout K8S manifest SCM'){
+            steps {
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springdemo.git'
+            }
+        }
+
+        stage('Update K8S manifest & push to Repo'){
+            environment {
+                        GITHUB_PERSONAL_TOKEN = credentials('GITHUB_PERSONAL_TOKEN')
+                }
+		    steps {
+                	script{
+                        	sh '''
+	                        git config --global user.email "sammakaorz@hotmail.com"
+	                        git config --global user.name "sammakaorz"
+        	                cat deployment.yaml
+                	        sed -i "s/springboot:.*/springboot:${IMAGE_TAG}/g" deployment.yaml
+                        	cat deployment.yaml
+	                        git add deployment.yaml
+        	                git commit -m 'Updated the deployment yaml with new image tag ${IMAGE_TAG} | Jenkins Pipeline'
+                	        git remote -v
+                        	git push https://$GITHUB_PERSONAL_TOKEN@github.com/sammakaorz/springdemo.git HEAD:main
+                        	'''
+                		}
+            		}
+        	}
+
+
+
 
     }
 }
