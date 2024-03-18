@@ -92,7 +92,7 @@ pipeline {
 	                        git add deployment.yaml
         	                git commit -m 'Updated the deployment yaml with new image tag ${IMAGE_TAG} | Jenkins Pipeline'
                 	        git remote -v
-                        	git push https://$GITHUB_PERSONAL_TOKEN@github.com/sammakaorz/springdemo.git HEAD:main
+                        	git push https://$GITHUB_PERSONAL_TOKEN@github.com/sammakaorz/springboot.git HEAD:main
                         	'''
                 		}
             		}
