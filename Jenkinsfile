@@ -73,7 +73,7 @@ pipeline {
 
         stage('Checkout K8S manifest SCM'){
             steps {
-                git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springdemo.git'
+                git branch: 'main', credentialsId: 'github', url: 'https://github.com/sammakaorz/springboot.git'
             }
         }
 
